@@ -1,0 +1,27 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('interview_questions', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('interview_id')->constrained()->cascadeOnDelete();
+            $table->unsignedInteger('order_index')->default(0);
+            $table->text('question_text');
+            $table->longText('answer_text')->nullable();
+            $table->unsignedTinyInteger('question_score')->nullable();
+            $table->text('question_feedback')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('interview_questions');
+    }
+};
